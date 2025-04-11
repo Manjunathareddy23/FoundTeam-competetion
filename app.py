@@ -20,7 +20,7 @@ class Task:
         self.due_date = due_date
         self.tags = tags
         self.status = status
-        self.recurring = recurring  # "daily", "weekly", "monthly"
+        self.recurring = recurring
 
     def to_dict(self):
         return {
@@ -114,6 +114,7 @@ def list(
     for t in tasks:
         if t.recurring:
             generate_recurring_task(t)
+    save_tasks(tasks)
 
     if filter_tag:
         tasks = [t for t in tasks if filter_tag in t.tags]
@@ -205,5 +206,6 @@ def export(format: str = typer.Option("json")):
     else:
         console.print("[red]Unsupported export format[/red]")
 
+# ✅ FIXED this line
 if __name__ == "__main__":
     app()
